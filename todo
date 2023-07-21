@@ -26,3 +26,44 @@ Potential travel APIs:
 - Eventbrite API: Provides data on local events and festivals to user’s input location
 - Mapbox or google maps API: so that I can show a visual display of suggested activities and travel routes?
 - Image API to show events
+
+
+
+Screens:
+    Login:
+        Username
+        Password
+        Google oAuth
+
+
+    Home
+        Top section
+            Input for location
+            Calender input for start
+            Calender input for end
+            Button -> Plan
+                -> change to Details
+
+
+        Middle/Bottom
+            Flat cards with preview info of saved trips
+
+
+    Details
+        Day-by-day agenda for given dates
+
+        Top section
+        Map at the top expanding whole card 
+            Shows pinpoint on user's place of stay
+
+        Cards for each day underneath with the day's itinerary
+            Card can have predicted weather
+            When you click a card the map at the top will change pinpoints for the planned events/locations
+
+
+
+    Account page 
+        Profile picture
+        Username edit 
+        Password edit 
+        
