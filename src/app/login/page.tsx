@@ -1,5 +1,5 @@
 'use client';
-import { Button, Card, TextField } from "@mui/material";
+import { Button, Card, TextField, FormControlLabel, Checkbox } from "@mui/material";
 import { styled } from "@mui/system";
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
@@ -36,11 +36,21 @@ const LoginCardRight = styled('div')({
   height: '100%',
   width: '100%',
   backgroundColor: '#F6F4EE',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'Center',
 })
 
 const StyledButton = styled(Button)({
   backgroundColor: '#E96A6A',
   borderColor: '#E96A6A',
+})
+
+const LoginOptions = styled('div')({
+  height: '100px',
+  width: '215px',
+  display: 'flex'
 })
 
 
@@ -68,21 +78,20 @@ const Login = () => {
                         id="password"
                     />
                     <StyledButton 
-                      variant="contained"
-                      onClick={login}
-                    >
-                        Login
-                    </StyledButton>
+                        variant="contained"
+                        onClick={login}
+                      >
+                          Login
+                      </StyledButton>
                 </LoginCardLeft>
                 <LoginCardRight>
-                  {/* <Image 
-                    
-                    // src='https://images.pexels.com/photos/16606649/pexels-photo-16606649/free-photo-of-green-leaves-of-eucalyptus.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' 
-                    src='/plants.jpg'
+                  <Image 
+                    src='/map.png'
                     alt="background"
-                    width={750/2}
-                    height={450}
-                  /> */}
+                    width={350}
+                    height={350}
+                    unoptimized={true}
+                  />
                 </LoginCardRight>
             </LoginCard>
         </PageWrapper>
