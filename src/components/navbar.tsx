@@ -37,7 +37,7 @@ const Navbar = () =>{
         router.push('home');
     }
     // account button
-    const accountButton = () =>{
+    const accountButton = () =>{                          
         router.push('account');
     }
     // logout button
