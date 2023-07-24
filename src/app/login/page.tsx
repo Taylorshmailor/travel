@@ -1,8 +1,10 @@
 'use client';
+import AppContext from "@/components/ContextProvider";
 import { Button, Card, TextField, FormControlLabel, Checkbox } from "@mui/material";
 import { styled } from "@mui/system";
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
+import { useState, useContext } from "react";
 
 const PageWrapper = styled('div')({
   height: '100vh',
@@ -56,11 +58,22 @@ const LoginOptions = styled('div')({
 
 const Login = () => {
 
+  const [newUserName, setNewUserName] = useState('');
+
+  // store for all our variables and states inside ContextProvider.tsx
+  const appContext = useContext(AppContext)
+  const { setUserName } = appContext
+
   // creating login button
   const router = useRouter();
-  const login = () =>{
+  const handleLogIn = (event: any) =>{
     // oauth check would happen here
-    router.push('home');
+    // router.push('home');
+
+    if (newUserName.length > 0) {
+      setUserName(newUserName)
+      router.push('home');
+    }
   }
 
     return(
@@ -72,6 +85,10 @@ const Login = () => {
                     <TextField
                         label='Username'
                         id="username"
+                        value={newUserName}
+                        onChange={(event) => {
+                          setNewUserName(event.target.value)
+                        }}
                     />
                     <TextField
                         label='Password'
@@ -79,7 +96,7 @@ const Login = () => {
                     />
                     <StyledButton 
                         variant="contained"
-                        onClick={login}
+                        onClick={handleLogIn}
                       >
                           Login
                       </StyledButton>
