@@ -1,8 +1,9 @@
 'use client';
 import { useRouter } from "next/navigation";
-import { Button, styled } from "@mui/material";
+import { Button, styled, IconButton } from "@mui/material";
 import { useContext } from "react";
 import { AppContext } from "./ContextProvider";
+import FlutterDashIcon from '@mui/icons-material/FlutterDash';
 
 const Container = styled('div')({
 });
@@ -23,6 +24,14 @@ const NoNavBar = styled('div')({
     height: '0px',
     width: '100%',
 });
+
+const NavButton = styled(Button)({
+    color: 'black',
+    textTransform: 'none',
+    fontSize: '1.2rem',
+    fontWeight: '500',
+    letterSpacing: '0',
+})
 
 const Navbar = () =>{
     const router = useRouter();
@@ -51,11 +60,13 @@ const Navbar = () =>{
             {
                 userName ? 
                 <NavBarWrapper>
-                    <h2>Logo holder</h2>
+                    <IconButton>
+                        <FlutterDashIcon fontSize="large" style={{ color: 'darkolivegreen' }}/>
+                    </IconButton>
                     <NavLinks>
-                        <Button variant="contained" onClick={homeButton}>Home</Button>
-                        <Button variant="contained" onClick={accountButton}>Account</Button>
-                        <Button variant="contained" onClick={logoutButton}>Log Out</Button>
+                        <NavButton  onClick={homeButton}>Home</NavButton>
+                        <NavButton  onClick={accountButton}>Account</NavButton>
+                        <NavButton  onClick={logoutButton}>Log Out</NavButton>
                     </NavLinks>     
                 </NavBarWrapper>
             :

@@ -13,7 +13,6 @@ const PageWrapper = styled('div')({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-
 })
 
 const LoginCard = styled(Card)({
@@ -76,43 +75,43 @@ const Login = () => {
     }
   }
 
-    return(
-        <PageWrapper>
-            <LoginCard 
-              elevation={5}
-            >
-                <LoginCardLeft >
-                    <TextField
-                        label='Username'
-                        id="username"
-                        value={newUserName}
-                        onChange={(event) => {
-                          setNewUserName(event.target.value)
-                        }}
-                    />
-                    <TextField
-                        label='Password'
-                        id="password"
-                    />
-                    <StyledButton 
-                        variant="contained"
-                        onClick={handleLogIn}
-                      >
-                          Login
-                    </StyledButton>
-                </LoginCardLeft>
-                <LoginCardRight>
-                  <Image 
-                    src='/map.png'
-                    alt="background"
-                    width={350}
-                    height={350}
-                    unoptimized={true}
-                  />
-                </LoginCardRight>
-            </LoginCard>
-        </PageWrapper>
-    )
+  return(
+    <PageWrapper>
+        <LoginCard 
+          elevation={5}
+        >
+          <LoginCardLeft >
+            <TextField
+              label='Username'
+              id="username"
+              value={newUserName}
+              onChange={(event) => {
+                setNewUserName(event.target.value)
+              }}
+            />
+            <TextField
+              label='Password'
+              id="password"
+            />
+            <StyledButton 
+              variant="contained"
+              onClick={handleLogIn}
+              >
+                Login
+          </StyledButton>
+        </LoginCardLeft>
+        <LoginCardRight>
+          <Image 
+            src='/map.png'
+            alt="background"
+            width={350}
+            height={350}
+            unoptimized={true}
+          />
+        </LoginCardRight>
+      </LoginCard>
+    </PageWrapper>
+  )
 }
 
 export default Login
