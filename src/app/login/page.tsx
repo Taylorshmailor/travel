@@ -99,7 +99,7 @@ const Login = () => {
                         onClick={handleLogIn}
                       >
                           Login
-                      </StyledButton>
+                    </StyledButton>
                 </LoginCardLeft>
                 <LoginCardRight>
                   <Image 
