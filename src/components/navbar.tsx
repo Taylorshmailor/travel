@@ -28,7 +28,7 @@ const Navbar = () =>{
     const router = useRouter();
 
     const appContext = useContext(AppContext);
-    const { userName, setUserName } = appContext;
+    const { userName, handleLogOut } = appContext;
 
     console.log(userName);
 
@@ -42,7 +42,7 @@ const Navbar = () =>{
     }
     // logout button
     const logoutButton = () =>{
-        setUserName('');
+        handleLogOut();
         router.push('login');
     }
 

@@ -62,7 +62,7 @@ const Login = () => {
 
   // store for all our variables and states inside ContextProvider.tsx
   const appContext = useContext(AppContext)
-  const { setUserName } = appContext
+  const { handleUserLogIn } = appContext
 
   // creating login button
   const router = useRouter();
@@ -71,7 +71,7 @@ const Login = () => {
     // router.push('home');
 
     if (newUserName.length > 0) {
-      setUserName(newUserName)
+      handleUserLogIn(newUserName)
       router.push('home');
     }
   }
