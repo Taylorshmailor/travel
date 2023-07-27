@@ -48,8 +48,8 @@ const PriceDropdown = {
 const Home = () => {
 
   const [location, setLocation] = useState('')
-  const [startDate, setStartDate] = useState<any>(dayjs(''));
-  const [endDate, setEndDate] = useState<any>(dayjs(''));
+  const [startDate, setStartDate] = useState<any>(null);
+  const [endDate, setEndDate] = useState<any>(null);
   const [min, setMin] = useState('');
   const [max, setMax] = useState('');
 
@@ -139,7 +139,6 @@ const Home = () => {
           </Select>
         </FormControl>
         
-
         <Button 
           variant="contained"
           onClick={generatePlan}
