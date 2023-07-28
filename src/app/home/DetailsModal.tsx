@@ -62,22 +62,25 @@ const MyMap = styled('div')({
   width: '100%',
 })
 //======================================================
-const AnyReactComponent = ({ text }: any) => (
-  <LocationOnIcon fontSize='large' style={{color:'red'}}/>
+const LocationMarker = ({ text }: any) => (
+  <div>
+    {text}
+    <LocationOnIcon fontSize='large' style={{color:'red'}}/>
+  </div>
 ) 
 
 export default function DetailsModal(props:any) {
   const [emblaRef, emblaApi] = useEmblaCarousel()
   const client = createClient(String(process.env.KEY_PEXELS));
-  const { isOpen, closeFunc, location } = props;
+  const { isOpen, closeFunc, location, lat, lng } = props;
 
   const [locationPhotos, setLocationPhotos] = React.useState([]);
 
   
   const defaultProps = {
     center: {
-      lat: 41.881832,
-      lng: -87.623177
+      lat: lat,
+      lng: lng
     },
     zoom: 14
   };
@@ -138,14 +141,19 @@ export default function DetailsModal(props:any) {
     <ContentWrapper>
       <MyMap>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: String(process.env.KEY_GOOGLEMAPS)}}
+          bootstrapURLKeys={{ key: String(process.env.NEXT_PUBLIC_KEY_GOOGLEMAPS)}}
           defaultCenter={defaultProps.center}
           defaultZoom={defaultProps.zoom}
         >
-          <AnyReactComponent
-            lat={41.885840}
-            lng={-87.635740}
-            text="My Home"
+          <LocationMarker
+            lat={29.9717}
+            lng={-95.6938}
+            text="Current Location"
+          />
+          <LocationMarker
+            lat={29.716681}
+            lng={-95.458145}
+            text="Current Location"
           />
         </GoogleMapReact>
       </MyMap>

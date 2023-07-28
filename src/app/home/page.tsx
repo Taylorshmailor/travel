@@ -51,10 +51,12 @@ const Home = () => {
 
   const [location, setLocation] = useState('')
   const [locationPhoto, setLocationPhoto] = useState('')
-  const [startDate, setStartDate] = useState<any>(null);
-  const [endDate, setEndDate] = useState<any>(null);
-  const [min, setMin] = useState('');
-  const [max, setMax] = useState('');
+  const [startDate, setStartDate] = useState<any>(null)
+  const [endDate, setEndDate] = useState<any>(null)
+  const [min, setMin] = useState('')
+  const [max, setMax] = useState('')
+  const [lat, setLat] = useState(0)
+  const [lng, setLng] = useState(0)
 
   const handleMinPriceChange = (event: any) => {
     setMin(event.target.value);
@@ -77,6 +79,15 @@ const Home = () => {
   }
 
   const generatePlan = () =>{
+    axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${process.env.NEXT_PUBLIC_KEY_GEOCODE}`)
+    .then((response: any) => {
+      console.log('Geocode response:', response)
+      const newLat = response.data.results[0].geometry.lat;
+      const newLng = response.data.results[0].geometry.lng;
+      setLat(newLat)
+      setLng(newLng)
+    })
+
     axios.post('/api/fetchLocationInfo', {
       location: location,
     })
@@ -164,6 +175,8 @@ const Home = () => {
         location={location}
         locationPhoto={locationPhoto}
         isOpen={detailsModelOpen}
+        lat={lat}
+        lng={lng}
         closeFunc={() => setDetailsModelOpen(false)}
       />
     </PageWrapper>
