@@ -84,8 +84,8 @@ const Home = () => {
       // grabbing first 10 points of interests
       const museums = response.data.locationInfoMuseum.elements.slice(0, 10)
       const restaurants = response.data.locationInfoRestaurant.elements.slice(0, 10)
-      console.log(museums)
-      console.log(restaurants)
+      console.log('Museums', museums)
+      console.log('Restaurants', restaurants)
       setDetailsModelOpen(true);
     }, (error: any) => {
       console.log(error);
