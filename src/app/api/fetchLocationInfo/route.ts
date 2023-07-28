@@ -9,7 +9,7 @@ export async function POST(req: any) {
 
   const overpassApiBaseUrl = 'https://overpass-api.de/api/interpreter';
 
-  const overpassQuery = `
+  const overpassQueryM = `
     [out:json];
     area[name="${location}"];
     (
@@ -21,31 +21,33 @@ export async function POST(req: any) {
     >;
     out skel qt;
   `;
+  const overpassQueryR = `
+    [out:json];
+    area[name="${location}"];
+    (
+      node["amenity"="restaurant"]["name"](area);
+      way["amenity"="restaurant"]["name"](area);
+      relation["amenity"="restaurant"]["name"](area);
+    );
+    out body;
+    >;
+    out skel qt;
+  `;
+
   try {
 
-
-
-
-    const response = await axios.post(overpassApiBaseUrl, overpassQuery, {
+    const responseM = await axios.post(overpassApiBaseUrl, overpassQueryM, {
       headers: { 'Content-Type': 'text/plain' },
     });
-
-    
-
-    // const pexelsResponse = await axios.post(`https://api.pexels.com/v1/search?query=${location}&per_page=1`, {
-    //   'Authorization': '',
-    // })
-    // .then((response) => {
-    //   console.log(response);
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // });
+    const responseR = await axios.post(overpassApiBaseUrl, overpassQueryR, {
+      headers: { 'Content-Type': 'text/plain' },
+    });
 
     // The response will contain the data retrieved from OpenStreetMap for points of interest in Chicago
 
     return NextResponse.json({
-      locationInfo: response.data,
+      locationInfoMuseum: responseM.data,
+      locationInfoRestaurant: responseR.data,
     
     });
 
@@ -82,7 +84,3 @@ export async function POST(req: any) {
 
 
 
-// https://www.pexels.com/search/chicago/
-// https://www.pexels.com/api/documentation/
-
-// pexels api key uoBR1y1BtjSeAVbGYI65emJJjrGJiDmbOrFNCUfF4G3hod9SV4S3P98H

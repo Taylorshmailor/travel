@@ -11,22 +11,35 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@googlemaps/js-api-loader": "^1.16.2",
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.14.2",
     "@mui/x-date-pickers": "^6.10.1",
+    "@types/leaflet": "^1.9.3",
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
     "axios": "^1.4.0",
     "dayjs": "^1.11.9",
+    "embla-carousel-autoplay": "^8.0.0-rc11",
+    "embla-carousel-react": "^8.0.0-rc11",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.11",
+    "google-map-react": "^2.2.1",
+    "leaflet": "^1.9.4",
+    "leaflet-defaulticon-compatibility": "^0.1.2",
+    "leaflet-geosearch": "^3.8.0",
     "moment": "^2.29.4",
     "next": "13.4.11",
     "nextjs-progressbar": "^0.0.16",
     "pexels": "^1.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-leaflet": "^4.2.1",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/google-map-react": "^2.1.7",
+    "@types/googlemaps": "^3.43.3"
   }
 }

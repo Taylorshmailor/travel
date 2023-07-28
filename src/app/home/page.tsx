@@ -81,9 +81,11 @@ const Home = () => {
       location: location,
     })
     .then((response: any) => {
-      console.log(response.data);
-      // const landscapePhoto = response?.data?.images?.src?.landscape || '';
-      // setLocationPhoto(landscapePhoto);
+      // grabbing first 10 points of interests
+      const museums = response.data.locationInfoMuseum.elements.slice(0, 10)
+      const restaurants = response.data.locationInfoRestaurant.elements.slice(0, 10)
+      console.log(museums)
+      console.log(restaurants)
       setDetailsModelOpen(true);
     }, (error: any) => {
       console.log(error);
