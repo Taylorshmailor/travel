@@ -1,0 +1,70 @@
+Functionality:
+- Database to store user login and information
+- Locally store information about destinations, activities, prices, etc.
+- Feature that takes in user input as search parameters
+    - Travel dates
+    - Area to visit
+    - Hotel or place of stay
+    - Budget
+    - Potential Interests
+- API to find location based on given city (reference weather app?)
+    - Maybe we can also showcase the weather for the day as well so people can dress accordingly 
+- APIs to scrapes data of the given area 
+- Feature that creates a list of 10 things that the user can do
+    - Or maybe we can return a day-by-day agenda for the user’s travel dates
+    - We’ll want to group activities based on proximity to each other so making sure they’re nearby 
+    - Affinities/preference algorithm?
+- Save and share feature that allows users to save the itinerary and send to friends
+
+Potential travel APIs:
+- Google Places API: database of places, like restaurants, attractions, hotels, etc
+    - You can use this API to retrieve detailed information about specific locations and points of interest.
+- Skyscanner API: gives access to flight, hotel, and car rental data
+    - Could be used for travel options based on user’s preferences and budget
+- OpenTripMap API: Gives data on places, attractions, and activities worldwide
+    - Has information about landmarks, museums, parks, etc
+- Eventbrite API: Provides data on local events and festivals to user’s input location
+- Mapbox or google maps API: so that I can show a visual display of suggested activities and travel routes?
+- Image API to show events
+
+
+
+Screens:
+    Login:
+        form
+            Username
+            Password
+        Google oAuth
+
+
+    Home
+        Top section
+            Input for location
+            Calender input for start
+            Calender input for end
+            Button -> Plan
+                -> change to Details
+
+
+        Middle/Bottom
+            Flat cards with preview info of saved trips
+
+
+    Details
+        Day-by-day agenda for given dates
+
+        Top section
+        Map at the top expanding whole card 
+            Shows pinpoint on user's place of stay
+
+        Cards for each day underneath with the day's itinerary
+            Card can have predicted weather
+            When you click a card the map at the top will change pinpoints for the planned events/locations
+
+
+
+    Account page 
+        Profile picture
+        Username edit 
+        Password edit 
+        
