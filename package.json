@@ -29,6 +29,7 @@
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "leaflet-geosearch": "^3.8.0",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "next": "13.4.11",
     "nextjs-progressbar": "^0.0.16",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@types/google-map-react": "^2.1.7",
-    "@types/googlemaps": "^3.43.3"
+    "@types/googlemaps": "^3.43.3",
+    "@types/lodash": "^4.17.7"
   }
 }

@@ -1,17 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/about',
-  //       destination: '/',
-  //       permanent: false,
-  //     },
-  //   ]
-  // }
-  images: {
-    domains: ['images.pexels.com'],
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/login',
+        permanent: true,
+      },
+    ]
   }
+  // images: {
+  //   domains: ['images.pexels.com'],
+  // }
 }
 
 module.exports = nextConfig

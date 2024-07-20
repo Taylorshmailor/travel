@@ -21,7 +21,7 @@ export async function POST(req: any) {
     >;
     out skel qt;
   `;
-  const overpassQueryR = `
+  const overpassQueryQ = `
     [out:json];
     area[name="${location}"];
     (
@@ -33,13 +33,58 @@ export async function POST(req: any) {
     >;
     out skel qt;
   `;
+  const overpassQueryR = `
+    [out:json];
+    area[name="${location}"];
+    (
+      node["leisure"="park"]["name"](area);
+      way["leisure"="park"]["name"](area);
+      relation["leisure"="park"]["name"](area);
+    );
+    out body;
+    >;
+    out skel qt;
+  `;
+  const overpassQueryS = `
+    [out:json];
+    area[name="${location}"];
+    (
+      node["historic"="monument"]["name"](area);
+      way["historic"="monument"]["name"](area);
+      relation["historic"="monument"]["name"](area);
+    );
+    out body;
+    >;
+    out skel qt;
+  `;
+  const overpassQueryT = `
+    [out:json];
+    area[name="${location}"];
+    (
+      node["amenity"="cafe"]["name"](area);
+      way["amenity"="cafe"]["name"](area);
+      relation["amenity"="cafe"]["name"](area);
+    );
+    out body;
+    >;
+    out skel qt;
+  `;
 
   try {
 
     const responseM = await axios.post(overpassApiBaseUrl, overpassQueryM, {
       headers: { 'Content-Type': 'text/plain' },
     });
+    const responseQ = await axios.post(overpassApiBaseUrl, overpassQueryQ, {
+      headers: { 'Content-Type': 'text/plain' },
+    });
     const responseR = await axios.post(overpassApiBaseUrl, overpassQueryR, {
+      headers: { 'Content-Type': 'text/plain' },
+    });
+    const responseS = await axios.post(overpassApiBaseUrl, overpassQueryS, {
+      headers: { 'Content-Type': 'text/plain' },
+    });
+    const responseT = await axios.post(overpassApiBaseUrl, overpassQueryT, {
       headers: { 'Content-Type': 'text/plain' },
     });
 
@@ -47,7 +92,10 @@ export async function POST(req: any) {
 
     return NextResponse.json({
       locationInfoMuseum: responseM.data,
-      locationInfoRestaurant: responseR.data,
+      locationInfoRestaurant: responseQ.data,
+      locationInfoOutdoors: responseR.data,
+      locationInfoMonument: responseS.data,
+      locationInfoCafes: responseT.data,
     
     });
 
@@ -55,29 +103,6 @@ export async function POST(req: any) {
     console.error('Error fetching data from OpenStreetMap:', error);
   }
 }
-
-
-// need to take maybe first 100 given POIs 
-// create coordinate pairs [lat, lng] for each location 
-// create function to group locations based on distance threshold
-// export function groupLocationsByDistance(arrays, threshold) --> clustering 
-  // grab first 7-10 activies of a cluster = itinerary for the day
-
-  // itineraries should have 3 spots to eat 
-  // 1 morning activity, 3 activities in afternoon, 1 night activity --> 5 activities in the day
-  // restaurants, museums, landmarks, 
-
-  // lat, lon
-  // name
-  // Format Address
-    // addr:housenumber
-    // addr:street
-    // addr:city
-    // addr: state
-    // addr:postcode
-  // opening_hours
-  // fee  
-
 
 
 
