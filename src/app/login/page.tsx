@@ -1,81 +1,36 @@
 'use client';
 import AppContext from "@/components/ContextProvider";
-import { Button, Card, TextField } from "@mui/material";
-import { styled } from "@mui/system";
+import { TextField } from "@mui/material";
 import Image from 'next/image';
 import { useRouter } from "next/navigation";
 import { useState, useContext, useEffect } from "react";
-import { fetchUsers } from "@/utils/api";
 import { User } from "@/types";
-
-const PageWrapper = styled('div')({
-  height: '100vh',
-  width: '100%',
-  backgroundColor: '#FFFFFF',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
-
-const LoginCard = styled(Card)({
-  height: '450px',
-  width: '750px',
-  backgroundColor: '#FFFFFF',
-  display: 'flex',
-  borderRadius: '10px',
-});
-
-const LoginCardLeft = styled('div')({
-  height: '100%',
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'Center',
-  rowGap: '10px'
-});
-
-const LoginCardRight = styled('div')({
-  height: '100%',
-  width: '100%',
-  backgroundColor: '#F6F4EE',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'Center',
-});
-
-const StyledButton = styled(Button)({
-  backgroundColor: '#E96A6A',
-  borderColor: '#E96A6A',
-});
+import { handleLogIn, loadUsers } from "@/utils/functions";
+import {
+  PageWrapper,
+  LoginCard,
+  LoginCardLeft,
+  LoginCardRight,
+  StyledButton
+} from "@/utils/styles/login.styles"; // Update the import
 
 const Login = () => {
-  const [newUserName, setNewUserName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [users, setUsers] = useState<User[]>([]);
 
   const appContext = useContext(AppContext);
   const { handleUserLogIn } = appContext;
 
   const router = useRouter();
-  const handleLogIn = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (newUserName.length > 0) {
-      handleUserLogIn(newUserName);
-      router.push('/home');
-    }
-  };
 
   useEffect(() => {
-    async function loadUsers() {
-      try {
-        const data = await fetchUsers();
-        setUsers(data);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
+    async function fetchAndSetUsers() {
+      const data = await loadUsers();
+      setUsers(data);
     }
 
-    loadUsers();
+    fetchAndSetUsers();
   }, []);
 
   return (
@@ -97,18 +52,27 @@ const Login = () => {
           <TextField
             label='Username'
             id="username"
-            value={newUserName}
-            onChange={(event) => setNewUserName(event.target.value)}
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
           />
           <TextField
             label='Password'
             id="password"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
           <StyledButton
             variant="contained"
-            onClick={handleLogIn}
+            onClick={() => handleLogIn(username, password, users, handleUserLogIn, router)}
           >
             Login
+          </StyledButton>
+          <StyledButton
+            variant="contained"
+            onClick={() => router.push('/create')}
+          >
+            Create Account
           </StyledButton>
         </LoginCardLeft>
         <LoginCardRight>

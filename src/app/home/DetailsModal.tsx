@@ -8,17 +8,18 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import styled from '@emotion/styled';
 import { FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
 import Image from 'next/image';
-import axios from 'axios';
-import { createClient } from 'pexels';
-
-import useEmblaCarousel from 'embla-carousel-react'
-import Autoplay from 'embla-carousel-autoplay'
-
 import GoogleMapReact from 'google-map-react';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+
+import {
+  ContentWrapper,
+  StyledDialog,
+  StyledAppBar,
+  MyMap,
+  DayCard
+} from "@/utils/styles/details.styles";
 
 //======================================================
 const Transition = React.forwardRef(function Transition(
@@ -29,23 +30,7 @@ const Transition = React.forwardRef(function Transition(
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-//======================================================
-const ContentWrapper = styled('div') ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  height: '100%',
-  backgroundColor: '#F6F4EE',
-});
-const StyledDialog = styled(Dialog) ({});
-const StyledAppBar = styled(AppBar) ({ backgroundColor: 'darkolivegreen' });
-const Embla = styled('div')({ overflow: 'hidden' });
-const EmblaContainer = styled('div')({ display: 'flex', height: '400px', width: '100%' });
-const EmblaSlide = styled('div')({ flex: '0 0 100%', minWidth: 0, height: '100%', width: '100%' });
-const MyMap = styled('div')({ height: '70vh', width: '100%' });
-const DayCard = styled('div')({ height: '600px', width: '300px', backgroundColor: 'White', borderRadius: '20px', marginTop: '15px', textAlign: 'center' });
 
-//======================================================
 const CurrentLocationMarker = ({ text }: any) => (
   <div>
     {text}
@@ -66,34 +51,8 @@ const LocationMarker = ({ lat, lng, name, address }: { lat: number, lng: number,
 );
 
 const DetailsModal = React.memo((props: any) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel();
   const { isOpen, closeFunc, location, lat, lng, museumMarkers, dateRange } = props;
-
-  const [locationPhotos, setLocationPhotos] = React.useState([]);
-
   console.log('Rendering DetailsModal with dateRange:', dateRange);
-
-  React.useEffect(() => {
-    if (emblaApi) {
-      console.log('Embla carousel API:', emblaApi.slideNodes());
-    }
-  }, [emblaApi]);
-
-  // React.useEffect(() => {
-  //   // This effect only runs if isOpen is true
-  //   if (isOpen) {
-  //     // Fetch photos and set state
-  //     // (Assuming `client` is properly initialized somewhere else in your code)
-  //     client.photos.search({ query: location, per_page: 10 })
-  //       .then((pexelsResponse: any) => {
-  //         console.log('pexelsResponse', pexelsResponse);
-  //         setLocationPhotos(pexelsResponse.photos);
-  //       }).catch(e => {
-  //         console.log(e);
-  //         setLocationPhotos([]);
-  //       });
-  //   }
-  // }, [isOpen, location]);
 
   const handleClose = () => {
     closeFunc();
@@ -137,19 +96,6 @@ const DetailsModal = React.memo((props: any) => {
           </GoogleMapReact>
         </MyMap>
         <DayCard>Howdy</DayCard>
-        <Embla ref={emblaRef}>
-          <EmblaContainer>
-            {locationPhotos.map((photo) => {
-              const { src } = photo;
-              const { landscape } = src;
-              return (
-                <EmblaSlide key={landscape}>
-                  <Image src={landscape} quality={100} layout='fill' alt={location} />
-                </EmblaSlide>
-              );
-            })}
-          </EmblaContainer>
-        </Embla>
       </ContentWrapper>
     </StyledDialog>
   );

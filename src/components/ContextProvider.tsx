@@ -1,69 +1,72 @@
+// components/ContextProvider.tsx
 'use client';
-//================================================================
-import { createContext, useState, useEffect } from 'react';
-//================================================================
-const defaultValues = {
+import { createContext, useState, useEffect, ReactNode } from 'react';
+
+type AppContextType = {
+  isLoggedIn: boolean;
+  username: string;
+  locationPictures: any[];
+  setLocationPictures: (locationPictures: any[]) => void;
+  handleUserLogIn: (userName: string) => void;
+  handleLogOut: () => void;
+};
+
+const defaultValues: AppContextType = {
   isLoggedIn: false,
-  userName: '',
-
+  username: '',
   locationPictures: [],
-  setLocationPictures: (locationPictures: any) => {},
-
-  handleUserLogIn: (userName: string) => {},
+  setLocationPictures: () => {},
+  handleUserLogIn: () => {},
   handleLogOut: () => {}
-}
-//================================================================
-export const AppContext = createContext(defaultValues);
-//================================================================
-export const AppContextProvider = (props: any) => {
-  const { children } = props;
+};
 
-  const [userName, setUserName] = useState( defaultValues.userName );
-  const [isLoggedIn, setIsLoggedIn] = useState( defaultValues.isLoggedIn );
-  const [locationPictures, setLocationPictures] = useState( defaultValues.locationPictures );
+export const AppContext = createContext<AppContextType>(defaultValues);
+
+export const AppContextProvider = ({ children }: { children: ReactNode }) => {
+  const [username, setUsername] = useState(defaultValues.username);
+  const [isLoggedIn, setIsLoggedIn] = useState(defaultValues.isLoggedIn);
+  const [locationPictures, setLocationPictures] = useState(defaultValues.locationPictures);
 
   useEffect(() => {
-    if (typeof window !== undefined) {
-      const localUserName = localStorage.getItem('userName');
+    if (typeof window !== 'undefined') {
+      const localUserName = localStorage.getItem('username');
       const localIsLoggedIn = localStorage.getItem('isLoggedIn');
       if (localUserName && localIsLoggedIn) {
-        setUserName(localUserName);
-        setIsLoggedIn(Boolean(localIsLoggedIn));
+        setUsername(localUserName);
+        setIsLoggedIn(localIsLoggedIn === 'true');
       }
     }
-  }, [])
+  }, []);
 
-  const handleUserLogIn = (userName: string) => {
-    setUserName(userName);
+  const handleUserLogIn = (username: string) => {
+    setUsername(username);
     setIsLoggedIn(true);
-    localStorage.setItem('userName', userName);
+    localStorage.setItem('username', username);
     localStorage.setItem('isLoggedIn', 'true');
-  }
+  };
 
   const handleLogOut = () => {
-    setUserName('');
+    setUsername('');
     setIsLoggedIn(false);
-    localStorage.removeItem('userName');
+    localStorage.removeItem('username');
     localStorage.removeItem('isLoggedIn');
-  }
+  };
 
   return (
-    <AppContext.Provider 
-      value={
-        {
-          isLoggedIn,
-          userName,
-          handleUserLogIn,
-          handleLogOut,
-          locationPictures,
-          setLocationPictures,
-        }
-      } 
+    <AppContext.Provider
+      value={{
+        isLoggedIn,
+        username,
+        handleUserLogIn,
+        handleLogOut,
+        locationPictures,
+        setLocationPictures,
+      }}
     >
       {children}
     </AppContext.Provider>
-  )
-}
-
+  );
+};
 
 export default AppContext;
+export type { AppContextType };
